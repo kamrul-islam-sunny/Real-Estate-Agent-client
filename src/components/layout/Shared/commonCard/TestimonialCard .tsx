@@ -3,8 +3,8 @@ import { FaStar } from 'react-icons/fa'; // Import the star icon
 // { quote, author, rating }
 const TestimonialCard = () => {
   return (
-    <div className="bg-white max-w-xl p-6 rounded-lg shadow-md text-black">
-      <p className="text-lg italic mb-4">
+    <div className="bg-white mx-3 sm:max-w-xl p-6 rounded-lg shadow-md text-black">
+      <p className="text-sm sm:text-base lg:text-lg italic mb-4">
         &ldquo;{'Renting through them has been an absolute breeze. The application process was straightforward, and their team was incredibly responsive and helpful whenever I had questions. The property itself is exactly as described, and any minor maintenance requests have been handled swiftly. Highly recommend for a stress-free rental experience!'}&rdquo;
       </p>
       <div className="flex flex-col items-end">

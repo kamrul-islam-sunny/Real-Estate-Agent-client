@@ -1,7 +1,7 @@
 import { Carousel, CarouselContent, CarouselItem, CustomCarouselNext, CustomCarouselPrevious } from '@/components/ui/carousel'
 import React from 'react'
 import Heading from '../Shared/Heading'
-import CityCard from '../Shared/home/CityCard'
+import CityCard from '../Shared/commonCard/CityCard'
 
 function SearchByCity() {
   return (
