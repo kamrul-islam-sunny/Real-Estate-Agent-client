@@ -81,7 +81,8 @@ function Navbar() {
             <NavLink href="/" currentPath={path}>Home</NavLink>
             <NavLink href="/properties" currentPath={path}>Properties</NavLink>
             <NavLink href="/about" currentPath={path}>About</NavLink>
-          </ul>
+          </ul>  
+          
 
 
           {/* right navItem */}
