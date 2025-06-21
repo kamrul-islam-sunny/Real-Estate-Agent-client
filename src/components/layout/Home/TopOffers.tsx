@@ -2,7 +2,7 @@ import { Carousel, CarouselContent, CarouselItem, CustomCarouselNext, CustomCaro
 import Link from 'next/link'
 import React from 'react'
 import Heading from '../Shared/Heading'
-import PropertyCard from '../Shared/home/PropertyCard'
+import PropertyCard from '../Shared/commonCard/PropertyCard'
 
 function TopOffers() {
     return (

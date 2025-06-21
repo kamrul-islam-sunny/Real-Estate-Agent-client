@@ -9,7 +9,7 @@ import {
     CustomCarouselPrevious2,
     type CarouselApi,
 } from "@/components/ui/carousel"
-import TestimonialCard from '../Shared/home/TestimonialCard '
+import TestimonialCard from '../Shared/commonCard/TestimonialCard '
 import { GoDotFill } from 'react-icons/go'
 
 
@@ -49,13 +49,13 @@ function WhatMyCustomerSays() {
         <div className='relative'>
             <div className='px-[5%]'>
                 <div className="max-w-screen-xl mx-auto my-6 sm:my-10 relative">
-                    <div className="bg-accent-gold h-[600px] rounded text-center py-10 relative">
+                    <div className="bg-accent-gold sm:h-[600px] rounded text-center py-10 relative">
                         <Heading>
                             <span className='text-white'>What My customer says</span>
                         </Heading>
 
 
-                        <div className="max-w-screen-2xl mx-auto absolute -left-32">
+                        <div className=" sm:max-w-xl lg:max-w-screen-2xl mx-auto sm:absolute -left-32 overflow-hidden">
                             <Carousel setApi={setApi} className="w-full">
                                 <CustomCarouselContent>
                                     {Array.from({ length: 15 }).map((_, index) => (
@@ -70,7 +70,7 @@ function WhatMyCustomerSays() {
                                 <CustomCarouselNext2 />
                             </Carousel>
 
-                            <div className="absolute right-14 sm:right-20 bottom-6 lg:right-20 lg:bottom-12 py-2 flex items-center justify-center text-muted-foreground  ">
+                            <div className="absolute right-14 sm:right-20 bottom-6 lg:right-20 lg:bottom-12 py-2 flex items-center justify-center text-muted-foreground border border-red-500">
                                 {
                                     Array.from({ length: count }).map((_, i) =>
                                         <GoDotFill key={i} className={`${dotStyle(i)}`} />
