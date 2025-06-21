@@ -5,7 +5,7 @@ import cardImage from '@/../public/asset/cardImages.png'
 
 export default function PropertyCard() {
   return (
-    <div className="max-w-sm w-full rounded-lg shadow-lg border overflow-hidden bg-white">
+    <div className="w-full rounded-lg border overflow-hidden bg-white">
       {/* Top Image with labels */}
       <div className="relative">
         <Image
@@ -49,3 +49,4 @@ export default function PropertyCard() {
     </div>
   )
 }
+

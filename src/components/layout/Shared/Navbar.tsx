@@ -1,7 +1,7 @@
 "use client";
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from '@/../public/asset/logo.svg'
 import { Button } from '@/components/ui/button'
 import { MdOutlineCancel } from 'react-icons/md';
@@ -12,6 +12,15 @@ function Navbar() {
 
   const path = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+    return () => document.body.classList.remove("overflow-hidden");
+  }, [isMenuOpen]);
 
   const MobileNavLink: React.FC<{
     href: string;
@@ -63,13 +72,13 @@ function Navbar() {
 
         <div className="flex justify-between items-center ">
           {/* logo */}
-          <div className="text-2xl font-bold relative z-50">
-            <Image width={50} height={50} src={logo} alt='real-estate-agent-logo' />
+          <div className="text-2xl font-bold relative ">
+            <Image width={50} height={50} src={logo} alt='real-estate-agent-logo' className='relative z-50' />
           </div>
 
           {/* nav item */}
           <ul className=" space-x-8 font-nunito text-dark-gray sm:flex  hidden">
-            <NavLink href="/home" currentPath={path}>Home</NavLink>
+            <NavLink href="/" currentPath={path}>Home</NavLink>
             <NavLink href="/properties" currentPath={path}>Properties</NavLink>
             <NavLink href="/about" currentPath={path}>About</NavLink>
           </ul>  
@@ -99,16 +108,16 @@ function Navbar() {
         </div>
 
         <div
-          className={`fixed sm:hidden inset-0 w-full h-screen bg-white z-40 text-lg duration-500 py-18 px-[5%] border border-red-500 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"
+          className={`fixed top-0 left-0 w-full flex flex-col gap-4 bg-white pt-20 pb-5 z-40 px-[5%] transform duration-500 lg:hidden shadow ${isMenuOpen ? "translate-y-0" : "-translate-y-full"
             }`}
         >
           <div className="flex flex-col gap-4">
-            <MobileNavLink href="/home" currentPath={path}>Home</MobileNavLink>
+            <MobileNavLink href="/" currentPath={path}>Home</MobileNavLink>
             <div className="bg-accent-gold h-px w-full"></div>
             <MobileNavLink href="/Properties" currentPath={path}>Properties</MobileNavLink>
             <div className="bg-accent-gold h-px w-full"></div>
             <MobileNavLink href="/about" currentPath={path}>About</MobileNavLink>
-            <div className="bg-accent-gold h-px w-full"></div>
+            {/* <div className="bg-accent-gold h-px w-full"></div> */}
 
           </div>
         </div>

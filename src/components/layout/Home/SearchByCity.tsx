@@ -1,12 +1,12 @@
 import { Carousel, CarouselContent, CarouselItem, CustomCarouselNext, CustomCarouselPrevious } from '@/components/ui/carousel'
 import React from 'react'
 import Heading from '../Shared/Heading'
-import CityCard from '../Shared/home/CityCard'
+import CityCard from '../Shared/commonCard/CityCard'
 
 function SearchByCity() {
   return (
   <div className='px-[5%]'>
-            <div className="max-w-screen-xl mx-auto py-10">
+            <div className="max-w-screen-xl mx-auto py-12 sm:py-16 lg:py-20">
                 <div className="relative flex flex-col sm:flex-row justify-between sm:items-end gap-5">
                     <header className="sm:w-1/2 space-y-2 sm:space-y-4">
                         <Heading>
@@ -21,7 +21,7 @@ function SearchByCity() {
                     </div> */}
                 </div>
                 <Carousel
-                    className="w-full mt-5 sm:mt-7 lg:mt-9 2xl:mt-12"
+                    className="w-full mt-8 sm:mt-10 lg:mt-15 2xl:mt-12"
                     aria-label="Our courses Carousel"
                 >
                     <CarouselContent role="list" >
