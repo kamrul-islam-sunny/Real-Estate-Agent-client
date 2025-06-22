@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Inter, Anton, Nunito } from "next/font/google";
-import "./globals.css"; 
+import "./globals.css";
+import ReduxWrapper from "@/redux/ReduxWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,13 +33,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${anton.variable} ${nunito.variable} ${inter.className}   antialiased`}
-      >
-        
-        {children}
-      </body>
-    </html>
+    <ReduxWrapper>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${anton.variable} ${nunito.variable} ${inter.className}   antialiased`}
+        >
+          {children}
+        </body>
+      </html>
+    </ReduxWrapper>
   );
 }
