@@ -1,11 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { FormItem, FormLabel } from "@/components/ui/form";
-;
 import { useForm, FormProvider, useFieldArray } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, X } from "lucide-react";
 import toast from "react-hot-toast";
 import uploadImageToImageBB from "@/helper/ImageUpload/ImageUpload";
 import {
@@ -27,12 +26,12 @@ interface PropertyFormData {
     label: string;
     value: string;
   }[];
-  type?: string;
   sale?: string;
   bedrooms?: string;
   bathrooms?: string;
   squareFeet?: string;
-  video?: string;
+  parking?: string;
+  amenities: string[];
 }
 
 const UpdateProperty: React.FC<{ params: Promise<any> }> = ({ params }) => {
@@ -54,7 +53,7 @@ const UpdateProperty: React.FC<{ params: Promise<any> }> = ({ params }) => {
   const router = useRouter();
   const [propertiesImages, setPropertiesImages] = useState<File[]>([]);
   const [isImageUploading, setIsImageUploading] = useState(false);
-
+  const [Amenities, setAmenities] = useState<string[]>([]);
   const { data: property, isLoading } =
     useHandleFindSinglePropertiesQuery(slug);
   const [handleUpdateProperties] = useHandleUpdatePropertiesMutation();
@@ -74,19 +73,19 @@ const UpdateProperty: React.FC<{ params: Promise<any> }> = ({ params }) => {
   useEffect(() => {
     if (property) {
       reset({
-        name: property.payload.data.name || "",
-        description: property.payload.data.description || "",
-        location: property.payload.data.location || "",
-        price: property.payload.data.price || "",
-        type: property.payload.data.type || "",
-        sale: property.payload.data.sale || "",
-        bedrooms: property.payload.data.bedrooms || "",
-        bathrooms: property.payload.data.bathrooms || "",
-        squareFeet: property.payload.data.squareFeet || "",
-        video: property.payload.data.video || "",
-        details: property.payload.data.details || [{ label: "", value: "" }],
+        name: property?.payload?.data?.name || "",
+        description: property?.payload?.data?.description || "",
+        location: property?.payload?.data?.location || "",
+        price: property?.payload?.data?.price || "",
+        sale: property?.payload?.data?.sale || "",
+        bedrooms: property?.payload?.data?.bedrooms || "",
+        bathrooms: property?.payload?.data?.bathrooms || "",
+        squareFeet: property?.payload?.data?.squareFeet || "",
+        parking: property?.payload?.data?.parking || "",
+        details: property?.payload?.data?.details || [{ label: "", value: "" }],
       });
-      setPost(property.payload.data.description || "");
+      setPost(property?.payload?.data?.description || "");
+      setAmenities(property?.payload?.data?.amenities || []);
     }
   }, [property, reset]);
   const onChange = (content: string) => {
@@ -118,6 +117,7 @@ const UpdateProperty: React.FC<{ params: Promise<any> }> = ({ params }) => {
         ...data,
         description: post,
         image: imageURLs,
+        amenities:Amenities
       };
       console.log(payload);
 
@@ -136,7 +136,17 @@ const UpdateProperty: React.FC<{ params: Promise<any> }> = ({ params }) => {
       setIsImageUploading(false);
     }
   };
+  const handleAddKeyword = (e: any) => {
+    const value = e.currentTarget.value.trim();
+    if (e.key === "Enter" && value && !Amenities.includes(value)) {
+      setAmenities((prev) => [...prev, value]);
+      e.currentTarget.value = "";
+    }
+  };
 
+  const handleRemoveKeyword = (kw: any) => {
+    setAmenities((prev) => prev.filter((k) => k !== kw));
+  };
   if (isLoading) return <div>Loading...</div>;
   if (!property) return <div>Property not found</div>;
 
@@ -184,7 +194,10 @@ const UpdateProperty: React.FC<{ params: Promise<any> }> = ({ params }) => {
           <div className="space-y-4">
             <FormLabel>Additional Details</FormLabel>
             {fields.map((field, index) => (
-              <div key={field.id} className="flex justify-between gap-2 md:gap-0 items-end">
+              <div
+                key={field.id}
+                className="flex justify-between gap-2 md:gap-0 items-end"
+              >
                 <InputField
                   name={`details.${index}.label`}
                   label="Label"
@@ -222,39 +235,34 @@ const UpdateProperty: React.FC<{ params: Promise<any> }> = ({ params }) => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <FormItem>
-              <FormLabel>Property Type</FormLabel>
-              <select
-                {...register("type")}
-                className="form-select w-full p-2 border"
-              >
-                <option value="house">House</option>
-                <option value="apartment">Apartment</option>
-                <option value="condo">Condo</option>
-                <option value="townhouse">Townhouse</option>
-                <option value="duplex">Duplex</option>
-                <option value="triplex">Triplex</option>
-                <option value="loft">Loft</option>
-                <option value="studio">Studio</option>
-                <option value="villa">Villa</option>
-                <option value="bungalow">Bungalow</option>
-                <option value="cottage">Cottage</option>
-                <option value="manufactured">Manufactured</option>
-                <option value="mobile home">Mobile Home</option>
-                <option value="co-op">Co-op</option>
-                <option value="farm">Farm</option>
-                <option value="land">Land</option>
-                <option value="lot">Lot</option>
-                <option value="multi-family">Multi-family</option>
-                <option value="single-family">Single-family</option>
-                <option value="commercial">Commercial</option>
-                <option value="warehouse">Warehouse</option>
-                <option value="office">Office</option>
-                <option value="industrial">Industrial</option>
-                <option value="retail">Retail</option>
-                <option value="mixed-use">Mixed-use</option>
-              </select>
-            </FormItem>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Amenities
+              </label>
+              <div className="flex flex-wrap gap-2 p-3 bg-white border border-gray-300 rounded-md">
+                {Amenities.map((kw, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm"
+                  >
+                    {kw}
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveKeyword(kw)}
+                      className="ml-2 text-red-500 hover:text-red-700"
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+                ))}
+                <textarea
+                  rows={1}
+                  placeholder="Type and press Enter"
+                  onKeyUp={handleAddKeyword}
+                  className="flex-grow focus:outline-none resize-none text-sm text-gray-700 placeholder-gray-400 bg-transparent"
+                />
+              </div>
+            </div>
 
             <FormItem>
               <FormLabel>Sale Type</FormLabel>
@@ -268,7 +276,7 @@ const UpdateProperty: React.FC<{ params: Promise<any> }> = ({ params }) => {
             </FormItem>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
             <InputField
               name="bedrooms"
               label="Bedrooms"
@@ -284,20 +292,12 @@ const UpdateProperty: React.FC<{ params: Promise<any> }> = ({ params }) => {
               label="Square Feet"
               placeholder="Enter Square Feet"
             />
+            <InputField
+              name="parking"
+              label="Parking"
+              placeholder="Enter Parking Number"
+            />
           </div>
-
-          <InputField
-            name="video"
-            label="Video URL (Optional)"
-            type="url"
-            placeholder="https://example.com/tour.mp4"
-            validationRules={{
-              pattern: {
-                value: /^(ftp|http|https):\/\/[^ "]+$/,
-                message: "Please enter a valid URL",
-              },
-            }}
-          />
 
           <FormItem>
             <FormLabel>Images</FormLabel>
