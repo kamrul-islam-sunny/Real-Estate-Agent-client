@@ -144,7 +144,7 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
       <div
         className={cn(
           "flex",
-          orientation === "horizontal" ? "-ml-0 " : "-mt-4 flex-col",
+          orientation === "horizontal" ? "-mr-2 " : "-mt-4 flex-col",
           className
         )}
         {...props}
@@ -183,7 +183,7 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="carousel-item"
       className={cn(
         "min-w-0 shrink-0 grow-0 basis-full ",
-        orientation === "horizontal" ? "px-0 sm:px-4 " : "py-2",
+        orientation === "horizontal" ? "px-0 sm:pr-6 " : "py-2",
         className
       )}
       {...props}
@@ -200,7 +200,7 @@ function CustomCarouselItem({ className, ...props }: React.ComponentProps<"div">
       data-slot="carousel-item"
       className={cn(
         "min-w-0 shrink-0 grow-0 basis-full ",
-        orientation === "horizontal" ? "px-0 sm:px-4 " : "py-2",
+        orientation === "horizontal" ? "px-4 " : "py-2",
         className
       )}
       {...props}
@@ -284,7 +284,7 @@ function CustomCarouselPrevious({
       className={cn(
         "absolute h-10 w-10 sm:h-12 sm:w-12 rounded-full text-[#101828] sm:text-primary bg-white border-[1px] sm:border-[1px]  sm:border-zinc-300 z-50 cursor-pointer",
         orientation === "horizontal"
-          ? "right-12 sm:right-18 -top-11 sm:-top-12 lg:-top-[60px] 2xl:-top-[70px] -translate-y-1/2"
+          ? "right-12 sm:right-18 -top-14 lg:-top-[80px] 2xl:-top-[70px] -translate-y-1/2"
           : "-top-4 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
@@ -315,7 +315,7 @@ function CustomCarouselNext({
       className={cn(
         "absolute h-10 w-10 sm:h-12 sm:w-12 rounded-full text-[#101828] sm:text-primary bg-white border-[1px] sm:border-[1px] sm:border-zinc-300 z-50 cursor-pointer",
         orientation === "horizontal"
-          ? "right-0 sm:right-0 -top-11 sm:-top-12  lg:-top-[60px] 2xl:-top-[70px] -translate-y-1/2"
+          ? "right-0 sm:right-0 -top-14  lg:-top-[80px] 2xl:-top-[70px] -translate-y-1/2"
           : "-bottom-4 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}

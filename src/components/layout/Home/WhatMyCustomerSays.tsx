@@ -5,8 +5,8 @@ import {
     Carousel,
     CustomCarouselContent,
     CustomCarouselItem,
-    CustomCarouselNext2,
-    CustomCarouselPrevious2,
+    // CustomCarouselNext2,
+    // CustomCarouselPrevious2,
     type CarouselApi,
 } from "@/components/ui/carousel"
 import TestimonialCard from '../Shared/commonCard/TestimonialCard '
@@ -38,45 +38,40 @@ function WhatMyCustomerSays() {
     }, [api, count, current])
 
     const dotStyle = (num: number) => {
-        return `size-3 ${num === current ? 'text-black size-4' : ''}`
+        return `size-3 ${num === current ? 'text-black size-4 ml-2' : 'text-white ml-2'}`
     }
-
-    // todo: responsive 
-    // ! 
 
 
     return (
         <div className='relative'>
             <div className='px-[5%]'>
-                <div className="max-w-screen-xl mx-auto my-6 sm:my-10 relative">
-                    <div className="bg-accent-gold sm:h-[600px] rounded text-center py-10 relative">
+                <div className="max-w-screen-xl mx-auto my-6 sm:my-20 relative  ">
+                    <div className="bg-accent-gold py-10 sm:h-[500px] rounded text-center sm:pt-10 relative ">
                         <Heading>
                             <span className='text-white'>What My customer says</span>
                         </Heading>
 
 
-                        <div className=" sm:max-w-xl lg:max-w-screen-2xl mx-auto sm:absolute -left-32 overflow-hidden">
+                        <div className="sm:max-w-7xl lg:max-w-screen-2xl mx-auto mt-6 sm:absolute top-25 sm:left-1/2  sm:transform sm:-translate-x-1/2 overflow-hidden ">
                             <Carousel setApi={setApi} className="w-full">
                                 <CustomCarouselContent>
-                                    {Array.from({ length: 15 }).map((_, index) => (
-                                        <CustomCarouselItem key={index} className="sm:basis-1/2 lg:basis-1/3 ">
-                                            <div className="space-y-6 mt-6">
-                                                <TestimonialCard />
-                                            </div>
+                                    {Array.from({ length: 8 }).map((_, index) => (
+                                        <CustomCarouselItem key={index} className="sm:basis-1/3 ">
+                                            <TestimonialCard />
                                         </CustomCarouselItem>
                                     ))}
                                 </CustomCarouselContent>
-                                <CustomCarouselPrevious2 />
-                                <CustomCarouselNext2 />
+                                {/* <CustomCarouselPrevious2 />
+                                <CustomCarouselNext2 /> */}
                             </Carousel>
 
-                            <div className="absolute right-14 sm:right-20 bottom-6 lg:right-20 lg:bottom-12 py-2 flex items-center justify-center text-muted-foreground border border-red-500">
-                                {
-                                    Array.from({ length: count }).map((_, i) =>
-                                        <GoDotFill key={i} className={`${dotStyle(i)}`} />
-                                    )
-                                }
-                            </div>
+                        </div>
+                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 py-2 flex items-center justify-center text-muted-foreground ">
+                            {
+                                Array.from({ length: count }).map((_, i) =>
+                                    <GoDotFill key={i} className={`${dotStyle(i)}`} />
+                                )
+                            }
                         </div>
 
                     </div>

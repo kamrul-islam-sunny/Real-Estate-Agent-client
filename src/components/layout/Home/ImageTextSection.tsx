@@ -4,7 +4,7 @@ import windowImage from '@/../public/asset/window.png'
 export default function ImageTextSection() {
     return (
         <div className="px-[5%]">
-            <section className="max-w-screen-xl mx-auto py-6 sm:py-10">
+            <section className="max-w-screen-xl mx-auto ">
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
                     {/* Left: Image */}
                     <div className="sm:col-span-2 h-[300px] md:h-[500px] relative rounded overflow-hidden shadow-md">
