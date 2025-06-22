@@ -30,7 +30,7 @@ function Banner() {
 
 
         <div className="sm:absolute bottom-0 sm:right-3 lg:right-20 ">
-          <Image src={bannerImg} alt='a person img' width={435} height={580} className='w-full px-6 sm:px-0 sm:max-w-80 lg:max-w-full' />
+          <Image src={bannerImg} alt='a person img' width={435} height={580} className='w-full px-6 sm:px-0 sm:max-w-80 lg:max-w-md' />
         </div>
 
 
