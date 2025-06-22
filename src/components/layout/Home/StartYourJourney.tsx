@@ -27,7 +27,7 @@ function StartYourJourney() {
 
                     {/* card no 2 */}
                     <div className="group h-[450px] rounded-sm py-10 relative overflow-hidden bg-light-bg hover:bg-accent-gold transition duration-700 flex flex-col sm:flex-row lg:flex-col items-center">
-                        <div className="flex flex-col items-center justify-center gap-4 relative z-10 sm:pl-30 lg:pr-0">
+                        <div className="flex flex-col items-center justify-center gap-4 relative z-10 sm:pl-30 lg:pl-0">
                             <Image src={sellIcon} alt='buy a home icon' width={50} height={50} />
                             <h5 className="font-normal text-xl font-anton text-dark-true group-hover:text-white transition-colors duration-700">
                                 Sell a property
@@ -41,7 +41,7 @@ function StartYourJourney() {
 
                     {/* card no 3 */}
                     <div className="h-[450px] bg-light-bg rounded-sm py-10 relative overflow-hidden hover:bg-accent-gold transition duration-700 group flex flex-col sm:flex-row lg:flex-col items-center">
-                        <div className="flex flex-col items-center justify-center gap-4 relative z-10 sm:pl-30 lg:pr-0">
+                        <div className="flex flex-col items-center justify-center gap-4 relative z-10 sm:pl-30 lg:pl-0">
                             <Image src={rentIcon} alt='buy a home icon' width={50} height={50} />
                             <h5 className='font-normal text-xl font-anton text-dark-true group-hover:text-white transition-colors duration-700'>Rent a property</h5>
                             <button className='py-2 px-4 rounded-sm bg-dark-true text-white hover:bg-dark-true/90 font-inter text-sm font-light cursor-pointer'>Find a rental</button>
