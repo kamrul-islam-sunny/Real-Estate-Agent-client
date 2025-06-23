@@ -1,8 +1,6 @@
+'use client'
 import { Bed, Bath, Ruler, Share2, Heart, CheckCircle } from "lucide-react";
 import Image from "next/image";
-import firstImage from "@/../public/asset/about/first.png"
-import secondImage from "@/../public/asset/about/secondImg.png"
-import thirdImage from "@/../public/asset/about/third.png"
 import {
     Snowflake,
     Sun,
@@ -12,40 +10,76 @@ import {
     MoveVertical,
     Shirt,
 } from 'lucide-react'
+import { useHandleFindSinglePropertiesQuery } from "@/redux/features/properties/propertiesApi";
+import { useParams } from "next/navigation";
 
 export default function PropertyDetails() {
+
+    const { slug } = useParams();
+    console.log(slug)
+    const { data } = useHandleFindSinglePropertiesQuery(slug)
+    const property = data?.payload.data
+    //     const {
+    //   _id,
+    //   name,
+    //   location,
+    //   image,
+    //   description,
+    //   details,
+    //   price,
+    //   bedrooms,
+    //   bathrooms,
+    //   squareFeet,
+    //   parking,
+    //   sale,
+    //   slug,
+    //   amenities,
+    //   createdAt,
+    //   updatedAt,
+    // } = product
+
+    console.log(property)
+
     return (
         <div className="px-[5%]">
-
-            <div className="max-w-5xl mx-auto">
-            
-            </div>
-
-
             <div className=" max-w-screen-xl mx-auto">
 
                 {/* Images Section */}
                 <div className="grid grid-cols-1 sm:grid-cols-5 gap-4 py-10">
-                    <div className="sm:col-span-3">
+                    {/* Left Main Image */}
+                    <div className="sm:col-span-3 h-[450px]">
                         <Image
-                            src={firstImage}
+                            src={property?.image[0]}
                             alt="Main Property"
                             width={638}
                             height={400}
-                            className="w-full object-cover"
+                            className="w-full h-full object-cover rounded"
                         />
                     </div>
 
-                    <div className="sm:col-span-2 grid grid-cols-2 sm:grid-cols-1 sm:grid-rows-2 gap-4">
-                        <div className="">
-                            <Image src={secondImage} alt="Room" width={400} height={200} className="w-full h-full object-cover rounded" />
+                    {/* Right Two Images */}
+                    <div className="sm:col-span-2 grid grid-cols-2 sm:grid-cols-1 sm:grid-rows-2 gap-4 h-[450px]">
+                        <div className="h-full">
+                            <Image
+                                src={property?.image[1]}
+                                alt="Room"
+                                width={400}
+                                height={200}
+                                className="w-full h-full object-cover rounded"
+                            />
                         </div>
-                        <div className="">
-                            <Image src={thirdImage} alt="Kitchen" width={400} height={200} className="w-full h-full object-cover rounded" />
+                        <div className="h-full">
+                            <Image
+                                src={property?.image[2]}
+                                alt="Kitchen"
+                                width={400}
+                                height={200}
+                                className="w-full h-full object-cover rounded"
+                            />
                         </div>
-
                     </div>
                 </div>
+
 
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -62,12 +96,12 @@ export default function PropertyDetails() {
                                     </span>
                                 </div>
 
-                                <h2 className="text-3xl font-semibold text-gray-800 mb-3">$ 1,350</h2>
-                                <p className="text-gray-600 text-lg font-normal mb-4">07-04 Myrtle Ave Glendale, NY 11385</p>
+                                <h2 className="text-3xl font-semibold text-gray-800 mb-3">$ {property?.price}</h2>
+                                <p className="text-gray-600 text-lg font-normal mb-4">{property?.location}</p>
                                 <div className="flex gap-6  text-gray-600 text-sm">
-                                    <span className="flex items-center gap-1"><Bed size={16} /> 2</span>
-                                    <span className="flex items-center gap-1"><Bath size={16} /> 1</span>
-                                    <span className="flex items-center gap-1"><Ruler size={16} /> 42 sq.m</span>
+                                    <span className="flex items-center gap-1"><Bed size={16} /> {property?.bedrooms}</span>
+                                    <span className="flex items-center gap-1"><Bath size={16} /> {property?.bathrooms}</span>
+                                    <span className="flex items-center gap-1"><Ruler size={16} /> {property?.squareFeet} sq.m</span>
                                 </div>
                             </div>
                             <div className="flex gap-3 text-gray-600">
@@ -83,13 +117,8 @@ export default function PropertyDetails() {
                         {/* About Section */}
                         <div>
                             <h3 className="text-2xl font-medium mb-2">About</h3>
-                            <p className="text-gray-700 text-lg font-normal leading-relaxed">
-                                It offers a comfortable living area leading to a formal dining room, gorgeous hardwood
-                                floors throughout, spacious newly renovated kitchen with granite countertops and
-                                stainless steel appliances. Additionally, level two is the convenience of a master bedroom
-                                featuring a built-in dressing room, complemented by a private bath and shower for added
-                                comfort. This listing is conveniently located close to transportation hubs,
-                                ensuring easy access to the city’s heartbeat.
+                            <p className="text-gray-700 text-lg font-normal leading-relaxed"   dangerouslySetInnerHTML={{ __html: property?.description }}>
+                                {/* {description} */}
                             </p>
                         </div>
                     </div>
@@ -123,7 +152,7 @@ export default function PropertyDetails() {
                                 </tr>
                                 <tr className="text-lg font-normal">
                                     <td className="px-4 py-2 text-dark-true">Living space:</td>
-                                    <td className="px-4 py-2 text-end">42 sq.m</td>
+                                    <td className="px-4 py-2 text-end">{property?.squareFeet} sq.m</td>
                                 </tr>
                                 <tr className="text-lg font-normal">
                                     <td className="px-4 py-2 text-dark-true">Floors:</td>
