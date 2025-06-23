@@ -8,10 +8,6 @@ import WhatMyCustomerSays from "@/components/layout/Home/WhatMyCustomerSays";
 export default function Home() {
   return (
 
-    // TODO: 
-    // ! Responsive design.
-    // ! 
-
     <div className="">
       <Banner />
       <StartYourJourney />

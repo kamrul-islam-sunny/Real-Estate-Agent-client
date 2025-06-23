@@ -1,16 +1,28 @@
-// components/PropertyCard.jsx
+'use client'
+
 import Image from 'next/image'
 import { CheckCircle, Bed, Bath, Car } from 'lucide-react'
-import cardImage from '@/../public/asset/cardImages.png'
 
-export default function PropertyCard() {
+export default function PropertyCard({ product }:any) {
+  const {
+    name,
+    location,
+    image,
+    price,
+    bedrooms,
+    bathrooms,
+    parking,
+    squareFeet,
+    sale,
+  } = product
+
   return (
     <div className="w-full rounded-lg border overflow-hidden bg-white">
       {/* Top Image with labels */}
       <div className="relative">
         <Image
-          src={cardImage} // 👉 তোমার ইমেজ ফাইলের path
-          alt="Property Image"
+          src={image?.[0] || '/asset/cardImages.png'} // fallback image
+          alt={name}
           width={400}
           height={200}
           className="object-cover w-full h-48"
@@ -29,24 +41,23 @@ export default function PropertyCard() {
 
       {/* Card Body */}
       <div className="p-4 space-y-2 font-nunito">
-        <span className="text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded-md inline-block">
-          For Rent
+        <span className="text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded-md inline-block capitalize">
+          For {sale || 'rent'}
         </span>
 
-        <h3 className="text-2xl font-semibold text-gray-800 ">$1,620</h3>
-        <p className="text-sm text-gray-500">40 S 9th St, Brooklyn, NY 11249</p>
+        <h3 className="text-2xl font-semibold text-gray-800">${price}</h3>
+        <p className="text-sm text-gray-500">{location}</p>
 
         {/* Bottom Info */}
         <div className="flex items-center justify-between text-base text-gray-600 pt-2 border-t mt-3">
-          <span>65 sq.m</span>
+          <span>{squareFeet} sq.m</span>
           <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1 "><Bed size={18} /> 2</span>
-            <span className="flex items-center gap-1 "><Bath size={18} /> 1</span>
-            <span className="flex items-center gap-1 "><Car size={18} /> 1</span>
+            <span className="flex items-center gap-1"><Bed size={18} /> {bedrooms}</span>
+            <span className="flex items-center gap-1"><Bath size={18} /> {bathrooms}</span>
+            <span className="flex items-center gap-1"><Car size={18} /> {parking}</span>
           </div>
         </div>
       </div>
     </div>
   )
 }
-

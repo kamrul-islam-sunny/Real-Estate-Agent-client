@@ -4,14 +4,20 @@ import CustomBreadcrumb from '@/components/layout/Shared/CustomBreadcrumb'
 import PropertyFilterForm from './components/PropertyFilterForm'
 import PropertyCard from '@/components/layout/Shared/commonCard/PropertyCard'
 import { ListFilterPlus } from 'lucide-react'
-import properties from '@/../public/data.js'
+
+import { useHandleGetPropertiesQuery } from '@/redux/features/properties/propertiesApi'
+import SkeletonCard from '@/components/layout/Shared/commonCard/SkeletonCard'
+import Link from 'next/link'
 
 
 function Page() {
 
     const [open, isOpen] = useState(false)
-    const allProperties = properties;
-    console.log(allProperties)
+    const { data, isLoading } = useHandleGetPropertiesQuery({})
+
+    const allProperties = data?.payload.data || [];
+    console.log(data)
+
 
     return (
         <>
@@ -54,13 +60,18 @@ function Page() {
                         <div className="hidden sm:block sm:col-span-2 ">
                             <PropertyFilterForm />
                         </div>
-                        
+
                         <div className="sm:col-span-5 ">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {
                                     allProperties.map((product, i) =>
-                                        <PropertyCard key={i} />
+                                        <Link href={`/properties/${product.slug}`} key={i}>
+                                            <PropertyCard product={product}  />
+                                        </Link>
                                     )
+                                }
+                                {isLoading
+                                    && Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
                                 }
                             </div>
                         </div>

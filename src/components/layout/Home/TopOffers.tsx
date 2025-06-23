@@ -2,7 +2,7 @@ import { Carousel, CarouselContent, CarouselItem, CustomCarouselNext, CustomCaro
 import Link from 'next/link'
 import React from 'react'
 import Heading from '../Shared/Heading'
-import PropertyCard from '../Shared/commonCard/PropertyCard'
+// import PropertyCard from '../Shared/commonCard/PropertyCard'
 
 function TopOffers() {
     return (
@@ -32,7 +32,7 @@ function TopOffers() {
                                 key={i}
                                 className="sm:basis-1/2 lg:basis-1/3 "
                             >
-                                <PropertyCard key={i} />
+                                {/* <PropertyCard key={i} /> */}
                             </CarouselItem>
                         ))
                     }
