@@ -70,7 +70,7 @@ const getInitialMetaDataHistory = () => {
 const AddProperties = () => {
   const [propertiesImages, setPropertiesImages] = useState<File[]>([]);
   const [isImageUploading, setIsImageUploading] = useState<boolean>(false);
-    const [Amenities, setAmenities] = useState<string[]>([]);
+  const [Amenities, setAmenities] = useState<string[]>([]);
   const [metaData, setMetaData] = useState(getInitialMetaData);
   const [metaDataHistory, setMetaDataHistory] = useState(
     getInitialMetaDataHistory
@@ -124,9 +124,9 @@ const AddProperties = () => {
           label: detail.label,
           value: detail.value,
         })),
-        amenities:Amenities
+        amenities: Amenities,
       };
-console.log(payload);
+      console.log(payload);
       await handleAddProperties(payload).unwrap();
       toast.success("Property added successfully!");
       reset();
@@ -139,7 +139,7 @@ console.log(payload);
     }
   };
 
-  const handleAddKeyword = (e:any) => {
+  const handleAddKeyword = (e: any) => {
     const value = e.currentTarget.value.trim();
     if (e.key === "Enter" && value && !Amenities.includes(value)) {
       setAmenities((prev) => [...prev, value]);
@@ -147,7 +147,7 @@ console.log(payload);
     }
   };
 
-  const handleRemoveKeyword = (kw:any) => {
+  const handleRemoveKeyword = (kw: any) => {
     setAmenities((prev) => prev.filter((k) => k !== kw));
   };
   return (
@@ -168,7 +168,6 @@ console.log(payload);
             methods={methods}
             setHistoryModal={setHistoryModal}
             setMetaDataHistory={setMetaDataHistory}
-            
           />
 
           <InputField
