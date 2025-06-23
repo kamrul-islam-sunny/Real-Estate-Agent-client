@@ -1,10 +1,20 @@
+'use client'
 import { Carousel, CarouselContent, CarouselItem, CustomCarouselNext, CustomCarouselPrevious } from '@/components/ui/carousel'
 import Link from 'next/link'
 import React from 'react'
 import Heading from '../Shared/Heading'
+import { useHandleGetPropertiesQuery } from '@/redux/features/properties/propertiesApi'
+import PropertyCard from '../Shared/commonCard/PropertyCard'
+import SkeletonCard from '../Shared/commonCard/SkeletonCard'
+import { Frown } from 'lucide-react'
 // import PropertyCard from '../Shared/commonCard/PropertyCard'
 
 function TopOffers() {
+
+    const { data, isLoading, isError } = useHandleGetPropertiesQuery({})
+
+    const allProperties = data?.payload.data || [];
+
     return (
         <div className='px-[5%] bg-light-bg'>
             <div className="max-w-screen-xl mx-auto py-12 sm:py-16 lg:py-20">
@@ -27,43 +37,36 @@ function TopOffers() {
                 >
                     <CarouselContent role="list" >
                         {
-                        Array.from({ length: 10 }).map((_, i) => (
-                            <CarouselItem role='listitem'
-                                key={i}
-                                className="sm:basis-1/2 lg:basis-1/3 "
-                            >
-                                {/* <PropertyCard key={i} /> */}
-                            </CarouselItem>
-                        ))
-                    }
-
-                        {/* {
-                            isLoading ? Array.from({ length: 3 }).map((_, i) =>
+                             isLoading ? Array.from({ length: 3 }).map((_, i) =>
                                 <CarouselItem role='listitem'
                                     key={i}
                                     className="sm:basis-1/2 lg:basis-1/3"
                                 >
-                                    <SkeletonSingleCard key={i} />
+                                    <SkeletonCard key={i} />
                                 </CarouselItem>
 
-                            ) : properties?.map((property: any, i: number) =>
+                            ) : allProperties.map((product, i) =>
                                 <CarouselItem role='listitem'
                                     key={i}
-                                    className="sm:basis-1/2 lg:basis-1/3"
+                                    className="sm:basis-1/2 lg:basis-1/3 "
                                 >
-                                    <Link href={`/property/propertyDetails/${property.slug}`}><Card property={property} /></Link>
+                                    <Link href={`/properties/${product.slug}`} key={i}>
+                                        <PropertyCard product={product} />
+                                    </Link>
                                 </CarouselItem>
                             )
-                        } */}
-                        {/* {
+
+                        }
+
+                        {
                             isError && <div className="flex flex-col items-center justify-center text-center w-full py-16">
-                                <Frown className="w-16 h-16 text-white mb-4" />
-                                <h2 className="text-2xl font-semibold text-white">No Properties Found</h2>
-                                <p className="text-gray-200 mt-2">
+                                <Frown className="w-16 h-16 text-accent-gold mb-4" />
+                                <h2 className="text-2xl font-semibold text-accent-gold">No Properties Found</h2>
+                                <p className="text-accent-gold mt-2">
                                     Try adjusting your search or check back later.
                                 </p>
                             </div>
-                        } */}
+                        }
                     </CarouselContent>
                     <CustomCarouselPrevious aria-label="Previous Blog" />
                     <CustomCarouselNext aria-label="Next Blog" />

@@ -19,26 +19,9 @@ export default function PropertyDetails() {
     console.log(slug)
     const { data } = useHandleFindSinglePropertiesQuery(slug)
     const property = data?.payload.data
-    //     const {
-    //   _id,
-    //   name,
-    //   location,
-    //   image,
-    //   description,
-    //   details,
-    //   price,
-    //   bedrooms,
-    //   bathrooms,
-    //   squareFeet,
-    //   parking,
-    //   sale,
-    //   slug,
-    //   amenities,
-    //   createdAt,
-    //   updatedAt,
-    // } = product
-
-    console.log(property)
+   
+    // console.log(property)
+    // console.log(property?.details)
 
     return (
         <div className="px-[5%]">
@@ -117,7 +100,7 @@ export default function PropertyDetails() {
                         {/* About Section */}
                         <div>
                             <h3 className="text-2xl font-medium mb-2">About</h3>
-                            <p className="text-gray-700 text-lg font-normal leading-relaxed"   dangerouslySetInnerHTML={{ __html: property?.description }}>
+                            <p className="text-gray-700 text-lg font-normal leading-relaxed" dangerouslySetInnerHTML={{ __html: property?.description }}>
                                 {/* {description} */}
                             </p>
                         </div>
@@ -142,7 +125,7 @@ export default function PropertyDetails() {
 
                         <table className="table-auto w-2/3 ">
                             <tbody>
-                                <tr className="text-lg font-normal ">
+                                {/* <tr className="text-lg font-normal ">
                                     <td className="px-4 py-2 text-dark-true">Property type:</td>
                                     <td className="px-4 py-2 text-end">Apartment</td>
                                 </tr>
@@ -162,14 +145,26 @@ export default function PropertyDetails() {
                                     <td className="px-4 py-2 text-dark-true">Total rooms:</td>
                                     <td className="px-4 py-2 text-end">2</td>
                                 </tr>
+                            */}
+
+                                {
+                                    property?.details?.map((item: any, i: number): any =>
+                                        <tr className="text-lg font-normal" key={i}>
+                                            <td className="px-4 py-2 text-dark-true">{item.label}:</td>
+                                            <td className="px-4 py-2 text-end">{item.value}</td>
+                                        </tr>
+                                    )
+                                }
+
                                 <tr className="text-lg font-normal">
                                     <td className="px-4 py-2 text-dark-true">Bedrooms:</td>
-                                    <td className="px-4 py-2 text-end">2</td>
+                                    <td className="px-4 py-2 text-end">{property?.bedrooms}</td>
                                 </tr>
                                 <tr className="text-lg font-normal">
                                     <td className="px-4 py-2 text-dark-true">Bathrooms:</td>
-                                    <td className="px-4 py-2 text-end">1</td>
+                                    <td className="px-4 py-2 text-end">{property?.bathrooms}</td>
                                 </tr>
+
                             </tbody>
                         </table>
 
