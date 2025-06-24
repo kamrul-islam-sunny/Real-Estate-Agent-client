@@ -2,7 +2,7 @@
 
 import { useHandleGetPropertiesQuery } from '@/redux/features/properties/propertiesApi'
 // import { useHandleFindLocationPropertiesQuery } from '@/redux/features/properties/propertiesApi'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 type FormValues = {
@@ -16,7 +16,7 @@ type FormValues = {
 }
 
 const bedroomOptions = ['1', '2', '3', '4', '5+']
-const bathroomOptions = ['1', '2', '3', '4', '4+']
+const bathroomOptions = ['1', '2', '3', '4', '5+']
 const amenityOptions = [
   'Air conditioning',
   'Balcony',
@@ -27,22 +27,31 @@ const amenityOptions = [
   'WiFi',
 ]
 
-export default function PropertyFilterForm() {
-  const { register, handleSubmit, setValue, getValues, watch } = useForm<FormValues>({
+export default function PropertyFilterForm({ setFilterData }: any) {
+  const { register, handleSubmit, setValue } = useForm<FormValues>({
     defaultValues: {
       amenities: [],
     },
   })
 
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([])
   const [selectedBedrooms, setSelectedBedrooms] = useState<string | null>(null)
   const [selectedBathrooms, setSelectedBathrooms] = useState<string | null>(null)
   const [fromData, setFromData] = useState<Partial<FormValues>>({})
 
   const { data, refetch, } = useHandleGetPropertiesQuery({
     location: fromData?.city || '',
-    type: fromData?.homeType || '',
+    sale: fromData?.homeType || '',
+    bathrooms: selectedBathrooms || '',
+    bedrooms: selectedBedrooms || '',
+    amenities: selectedAmenities || [],
+    minPrice: fromData.priceMin || '',
+    maxPrice: fromData.priceMax || '',
+    squareFeet:fromData.sqmMax || '',
   })
-  console.log(data)
+  const filterData = data?.payload.data
+  console.log(data?.payload.data, filterData)
+  console.log(fromData)
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const fullData = {
@@ -55,35 +64,31 @@ export default function PropertyFilterForm() {
     refetch();
   }
 
+  // http://localhost:5000/api/v1/property/find?page=1&limit=10&location=&sale=&minPrice=45000&maxPrice=
+
+  useEffect(() => {
+    setFilterData(filterData)
+  }, [filterData, setFilterData])
+
   const handleInputChange = (fieldName: keyof FormValues) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     console.log(`${fieldName}:`, e.target.value);
     setValue(fieldName, e.target.value)
     handleSubmit(onSubmit)();
   };
 
-  // name,
-  //           page,
-  //           limit,
-  //          
-  //     
-  //           sale,
-  //          
 
 
+ 
 
   const toggleAmenity = (amenity: string) => {
-    const current = getValues('amenities') || []
-    if (current.includes(amenity)) {
-      setValue('amenities', current.filter((a) => a !== amenity))
-    } else {
-      setValue('amenities', [...current, amenity])
-    }
-  }
+    setSelectedAmenities((prev) =>
+      prev.includes(amenity)
+        ? prev.filter((item) => item !== amenity)
+        : [...prev, amenity]
+    );
+  };
 
-  const selectedAmenities = watch('amenities')
-
-
-
+  console.log(selectedAmenities)
 
 
 
@@ -114,8 +119,8 @@ export default function PropertyFilterForm() {
             }}
             className="w-full border rounded px-3 py-2">
             <option value="">select a type</option>
-            <option value="Rent">Rent</option>
-            <option value="Sale">Sale</option>
+            <option value="rent">Rent</option>
+            <option value="buy">Buy</option>
           </select>
         </div>
 
@@ -194,10 +199,13 @@ export default function PropertyFilterForm() {
           <label className="block text-lg font-semibold mb-2 font-nunito">Amenities</label>
           <div className="space-y-2">
             {amenityOptions.map((item) => (
-              <label key={item} className="flex items-center space-x-2 text-sm cursor-pointer">
+              <label
+                key={item}
+                className="flex items-center space-x-2 text-sm cursor-pointer"
+              >
                 <input
                   type="checkbox"
-                  checked={selectedAmenities?.includes(item)}
+                  checked={selectedAmenities.includes(item)}
                   onChange={() => toggleAmenity(item)}
                 />
                 <span>{item}</span>
@@ -216,3 +224,7 @@ export default function PropertyFilterForm() {
     </div>
   )
 }
+
+
+
+// http://localhost:5000/api/v1/property/find?page=1&limit=10&location=New+York&type=

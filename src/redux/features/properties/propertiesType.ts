@@ -6,9 +6,16 @@ export interface IPropertyGetReq {
   limit?: number;
   location?: string;
   type?: string;
+  slug?: string;
   sale?: string;
   minPrice?: string;
   maxPrice?: string;
+  bedrooms?: string;
+  bathrooms?: string;
+  squareFeet?: string;
+  parking?: boolean;
+  amenities?: string[];
+
 }
 export interface IPropertyGetRes {
   success: boolean;

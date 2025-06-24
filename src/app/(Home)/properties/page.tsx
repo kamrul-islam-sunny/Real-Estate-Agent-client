@@ -7,7 +7,6 @@ import { ListFilterPlus } from 'lucide-react'
 
 import { useHandleGetPropertiesQuery } from '@/redux/features/properties/propertiesApi'
 import SkeletonCard from '@/components/layout/Shared/commonCard/SkeletonCard'
-import Link from 'next/link'
 import { PaginationGlobal } from '@/components/dashboard/users/pagination'
 
 
@@ -18,12 +17,17 @@ function Page() {
     const [itemsPerPage, setItemsPerPage] = useState<number>(10);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [isLoadingPage, setIsLoadingPage] = useState<boolean>(false);
+
+
+ 
+    const [filterData, setFilterData] = useState([])
+
     const { data, isLoading, refetch } = useHandleGetPropertiesQuery({
         page: currentPage,
         limit: itemsPerPage,
     })
 
-    const allProperties = data?.payload.data || [];
+    // const allProperties = data?.payload.data || [];
     console.log(data)
 
     const handlePageChange = (page: number) => {
@@ -85,21 +89,21 @@ function Page() {
                                 <button onClick={() => isOpen(false)} className="text-gray-500 hover:text-black">✕</button>
                             </div>
                             <div className="p-4 overflow-y-auto h-[calc(100%-60px)]">
-                                <PropertyFilterForm />
+                                <PropertyFilterForm setFilterData={setFilterData} />
                             </div>
                         </div>
 
                         <div className="hidden sm:block sm:col-span-2 ">
-                            <PropertyFilterForm />
+                            <PropertyFilterForm setFilterData={setFilterData}  />
                         </div>
 
                         <div className="sm:col-span-5 flex flex-col justify-between">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {
-                                    allProperties.map((product, i) =>
-                                        <Link href={`/properties/${product.slug}`} key={i}>
+                                    filterData?.map((product, i) =>
+                                        <div key={i}>
                                             <PropertyCard product={product} />
-                                        </Link>
+                                        </div>
                                     )
                                 }
                                 {isLoadingPage || isLoading
