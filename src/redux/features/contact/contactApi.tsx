@@ -5,6 +5,7 @@ const ContactApi = realEstateApi.injectEndpoints({
   endpoints: (builder) => ({
     handleCreateContact: builder.mutation<any, any>({
       query: (payload) => {
+        console.log(payload)
         return {
           url: "/contact/create",
           method: "POST", 

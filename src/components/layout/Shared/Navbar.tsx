@@ -89,7 +89,7 @@ function Navbar() {
           {/* right navItem */}
           <div className="sm:block hidden ">
             <Button variant={'custom'} >
-              <Link href="#" className="text-lg font-nunito font-normal">Contact</Link>
+              <Link href="/contact" className="text-lg font-nunito font-normal">Contact</Link>
             </Button>
           </div>
 
