@@ -14,7 +14,11 @@ const propertiesApi = realEstateApi.injectEndpoints({
       },
     }),
     handleGetProperties: builder.query<IPropertyGetRes, IPropertyGetReq>({
-      query: ({ name, page = 1, limit = 10, location, type, sale, minPrice, maxPrice }) => {
+      query: ({ name, page = 1, limit = 10, location, type, sale, minPrice, maxPrice,  bedrooms,
+      bathrooms,
+      squareFeet,
+      parking,
+       }) => {
         return {
           url: "/property/find",
           method: "GET",
@@ -26,7 +30,11 @@ const propertiesApi = realEstateApi.injectEndpoints({
             type,
             sale,
             minPrice,
-            maxPrice
+            maxPrice,
+            bedrooms,
+            bathrooms,
+            squareFeet,
+            parking,
           },
         };
       },
@@ -63,12 +71,12 @@ const propertiesApi = realEstateApi.injectEndpoints({
     }),
 
     handleFindLocationProperties: builder.query<any, any>({
-      query: ({location}) => {
+      query: ({ location }) => {
         return {
           url: `/property/find-location`,
           method: "GET",
           params: {
-            location,       
+            location,
           }
         };
       },
