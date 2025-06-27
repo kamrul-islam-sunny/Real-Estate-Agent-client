@@ -13,7 +13,7 @@ function Navbar() {
   const path = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    useEffect(() => {
+  useEffect(() => {
     if (isMenuOpen) {
       document.body.classList.add("overflow-hidden");
     } else {
@@ -22,25 +22,25 @@ function Navbar() {
     return () => document.body.classList.remove("overflow-hidden");
   }, [isMenuOpen]);
 
-  const MobileNavLink: React.FC<{
-    href: string;
-    currentPath: string;
-    children: React.ReactNode;
-  }> = ({ href, currentPath, children }) => {
-    const isActive = currentPath === href;
-    return (
-      <Link
-        onClick={() => setIsMenuOpen(false)}
-        href={href}
-        className={`text-2xl transition-all duration-300 ${isActive
-          ? "text-accent-gold font-semibold"
-          : "text-dark-gray"
-          }`}
-      >
-        {children}
-      </Link>
-    );
-  };
+  // const MobileNavLink: React.FC<{
+  //   href: string;
+  //   currentPath: string;
+  //   children: React.ReactNode;
+  // }> = ({ href, currentPath, children }) => {
+  //   const isActive = currentPath === href;
+  //   return (
+  //     <Link
+  //       onClick={() => setIsMenuOpen(false)}
+  //       href={href}
+  //       className={`text-2xl transition-all duration-300 ${isActive
+  //         ? "text-accent-gold font-semibold"
+  //         : "text-dark-gray"
+  //         }`}
+  //     >
+  //       {children}
+  //     </Link>
+  //   );
+  // };
 
   const NavLink: React.FC<{
     href: string;
@@ -52,8 +52,8 @@ function Navbar() {
       <Link
         href={href}
         className={`relative font-normal text-lg px-1 py-1 transition-all duration-300 hover:text-turquoise ${isActive
-            ? "text-accent-gold font-semibold"
-            : "text-dark-gray"
+          ? "text-accent-gold font-medium"
+          : "text-dark-gray"
           }`}
       >
         {children}
@@ -66,66 +66,65 @@ function Navbar() {
 
 
   return (
-    <div className='px-[5%]'>
+    <nav>
+      {/* Mobile Overlay Only */}
+      {/* {
+        isMenuOpen && (
+          <div
+            className="sm:hidden fixed inset-0 bg-black/40 z-20 transition-opacity duration-300"
+            onClick={() => setIsMenuOpen(false)}
+          ></div>
+        )
+      } */}
 
-      <nav className='max-w-6xl mx-auto'>
+      <div className="px-[5%] bg-white relative z-50">
+        <div className="max-w-screen-xl mx-auto  bg-white relative z-50">
+          {/* navbar */}
+          <div className="flex justify-between items-center gap-5 py-5       bg-white relative z-50">
+            <div className="relative z-50">
+              {/* logo */}
+              <Image width={50} height={50} src={logo} alt='real-estate-agent-logo' className='' />
+            </div>
+            <div className="hidden sm:flex gap-5 mt-2 text-zinc-600 font-inter">
+              <NavLink href="/" currentPath={path}>Home</NavLink>
+              <NavLink href="/properties" currentPath={path}>Properties</NavLink>
+              <NavLink href="/about" currentPath={path}>About</NavLink>
+              <NavLink href="/dashboard" currentPath={path}>Dashboard</NavLink>
+            </div>
 
-        <div className="flex justify-between items-center ">
-          {/* logo */}
-          <div className="text-2xl font-bold relative ">
-            <Image width={50} height={50} src={logo} alt='real-estate-agent-logo' className='relative z-50' />
+
+            {/* right navItem */}
+            <div className="sm:block hidden ">
+              <Button variant={'custom'} >
+                <Link href="#" className="text-lg font-nunito font-normal">Contact</Link>
+              </Button>
+            </div>
+
+            <div
+              className="cursor-pointer relative z-50 sm:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <IoMenu size={28} /> : <MdOutlineCancel size={28} />}
+            </div>
           </div>
 
-          {/* nav item */}
-          <ul className=" space-x-8 font-nunito text-dark-gray sm:flex  hidden">
+          {/* with mobile navbar */}
+          <div
+            className={`fixed top-0 left-0 w-full flex flex-col gap-4 bg-white pt-20 pb-5 z-40 px-[5%] transform duration-500 font-inter lg:hidden shadow ${isMenuOpen ? "translate-y-10" : "-translate-y-full"
+              }`}
+          >
             <NavLink href="/" currentPath={path}>Home</NavLink>
             <NavLink href="/properties" currentPath={path}>Properties</NavLink>
             <NavLink href="/about" currentPath={path}>About</NavLink>
             <NavLink href="/dashboard" currentPath={path}>Dashboard</NavLink>
-          </ul>  
-          
-
-
-          {/* right navItem */}
-          <div className="sm:block hidden ">
-            <Button variant={'custom'} >
-              <Link href="#" className="text-lg font-nunito font-normal">Contact</Link>
-            </Button>
-          </div>
-
-
-          {/* Mobile Toggle */}
-          <div
-            className="sm:hidden relative z-50"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? (
-              <MdOutlineCancel className="text-3xl text-black cursor-pointer" />
-            ) : (
-              <IoMenu className="text-3xl text-black cursor-pointer" />
-            )}
-          </div>
-
-        </div>
-
-        <div
-          className={`fixed top-0 left-0 w-full flex flex-col gap-4 bg-white pt-20 pb-5 z-40 px-[5%] transform duration-500 lg:hidden shadow ${isMenuOpen ? "translate-y-0" : "-translate-y-full"
-            }`}
-        >
-          <div className="flex flex-col gap-4">
-            <MobileNavLink href="/" currentPath={path}>Home</MobileNavLink>
-            <div className="bg-accent-gold h-px w-full"></div>
-            <MobileNavLink href="/Properties" currentPath={path}>Properties</MobileNavLink>
-            <div className="bg-accent-gold h-px w-full"></div>
-            <MobileNavLink href="/about" currentPath={path}>About</MobileNavLink>
-            {/* <div className="bg-accent-gold h-px w-full"></div> */}
-
           </div>
         </div>
+      </div>
 
-      </nav >
-    </div >
+    </nav >
   )
 }
 
 export default Navbar
+
+

@@ -19,13 +19,13 @@ export default function PropertyCard({ product }:any) {
   return (
     <div className="w-full rounded-lg border overflow-hidden bg-white">
       {/* Top Image with labels */}
-      <div className="relative">
+      <div className="relative z-50">
         <Image
           src={image?.[0] || '/asset/cardImages.png'} // fallback image
           alt={name}
           width={400}
           height={200}
-          className="object-cover w-full h-48"
+          className=" h-52 object-cover"
         />
 
         {/* Verified & New badges */}
