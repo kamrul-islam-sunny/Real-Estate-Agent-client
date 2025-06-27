@@ -66,7 +66,7 @@ function Page() {
             <div className="px-[5%]">
                 <div className='max-w-screen-xl mx-auto mt-12 relative z-[70]' >
 
-                    <div className="w-full sm:max-w-5xl mx-auto grid sm:grid-cols-7 justify-center gap-8 py-10 relative z-20">
+                    <div className="w-full sm:max-w-5xl mx-auto grid sm:grid-cols-7 justify-center gap-8 py-10 relative z-10">
                         <button
                             className="sm:hidden flex items-center gap-2 text-lg font-nunito border border-gray-300 w-26 rounded px-4 py-1"
                             onClick={() => isOpen(!open)}
@@ -91,13 +91,7 @@ function Page() {
 
                         {/* Filter Panel: Drawer in mobile, Sidebar in desktop */}
                         <div
-  className={`
-    fixed top-0 left-0 h-full w-[320px] bg-white z-[70] shadow-lg transition-transform duration-300
-    ${open ? 'translate-x-0' : '-translate-x-full'} 
-    sm:translate-x-0 sm:static sm:block sm:shadow-none sm:h-auto sm:w-full sm:col-span-2
-    overflow-y-auto
-  `}
-
+                            className={`fixed top-0 left-0 h-full w-[320px] bg-white z-[70] shadow-lg transition-transform duration-300 ${open ? 'translate-x-0' : '-translate-x-full'} sm:translate-x-0 sm:static sm:block sm:shadow-none sm:h-auto sm:w-full sm:col-span-2 overflow-y-auto`}
                         >
                             {/* Mobile header with close button */}
                             <div className="p-4 border-b flex justify-between items-center sm:hidden">
@@ -121,9 +115,9 @@ function Page() {
 
                         <div className="w-full sm:col-span-5 flex flex-col justify-between relative z-20">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                                
+
                                 {
-                                    
+
                                     filterData?.map((product, i) =>
                                         <div className='w-full' key={i}>
                                             <PropertyCard product={product} />
