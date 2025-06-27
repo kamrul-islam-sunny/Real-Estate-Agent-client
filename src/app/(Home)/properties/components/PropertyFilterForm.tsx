@@ -27,7 +27,7 @@ const amenityOptions = [
   'WiFi',
 ]
 
-export default function PropertyFilterForm({ setFilterData }: any) {
+export default function PropertyFilterForm({setIsLoading, currentPage,itemsPerPage, setFilterData }: any) {
   const { register, handleSubmit, setValue } = useForm<FormValues>({
     defaultValues: {
       amenities: [],
@@ -39,7 +39,7 @@ export default function PropertyFilterForm({ setFilterData }: any) {
   const [selectedBathrooms, setSelectedBathrooms] = useState<string | null>(null)
   const [fromData, setFromData] = useState<Partial<FormValues>>({})
 
-  const { data, refetch, } = useHandleGetPropertiesQuery({
+  const { data, refetch, isLoading} = useHandleGetPropertiesQuery({
     location: fromData?.city || '',
     sale: fromData?.homeType || '',
     bathrooms: selectedBathrooms || '',
@@ -48,6 +48,8 @@ export default function PropertyFilterForm({ setFilterData }: any) {
     minPrice: fromData.priceMin || '',
     maxPrice: fromData.priceMax || '',
     squareFeet:fromData.sqmMax || '',
+    page: currentPage || 1,
+    limit: itemsPerPage || 10,
   })
   const filterData = data?.payload.data
   console.log(data?.payload.data, filterData)
@@ -68,7 +70,8 @@ export default function PropertyFilterForm({ setFilterData }: any) {
 
   useEffect(() => {
     setFilterData(filterData)
-  }, [filterData, setFilterData])
+    setIsLoading(isLoading)
+  }, [filterData, setFilterData, isLoading, setIsLoading])
 
   const handleInputChange = (fieldName: keyof FormValues) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     console.log(`${fieldName}:`, e.target.value);
@@ -214,12 +217,7 @@ export default function PropertyFilterForm({ setFilterData }: any) {
           </div>
         </div>
 
-        {/* Submit */}
-        <div className="pt-4">
-          <button type="submit" className="w-full bg-black text-white py-2 rounded">
-            Apply Filters
-          </button>
-        </div>
+       
       </form>
     </div>
   )
