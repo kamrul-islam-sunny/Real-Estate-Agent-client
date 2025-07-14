@@ -22,7 +22,7 @@ function Banner() {
 
   return (
     <div className='px-[5%]'>
-      <div className="max-w-screen-xl mx-auto sm:h-[650px] relative bg-bannerColor ">
+      <div className="max-w-screen-xl mx-auto sm:h-[650px] relative bg-bannerColor rounded-lg">
         <div className="max-w-3xl py-10 px-8">
           <h1 className='text-2xl sm:text-[40px] lg:text-[56px] font-normal font-anton text-white sm:leading-14 lg:leading-20'>Your trusted partner in <span className='text-accent-gold'>Real Estate</span> is Just a Click Away</h1>
           <p className='text-lg font-normal font-nunito text-white leading-6 mt-4 max-w-xl '>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>

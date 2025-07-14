@@ -8,6 +8,7 @@ import { ListFilterPlus } from 'lucide-react'
 import { useHandleGetPropertiesQuery } from '@/redux/features/properties/propertiesApi'
 import SkeletonCard from '@/components/layout/Shared/commonCard/SkeletonCard'
 import { PaginationGlobal } from '@/components/dashboard/users/pagination'
+import Link from 'next/link'
 
 
 function Page() {
@@ -23,7 +24,7 @@ function Page() {
 
     const [filterData, setFilterData] = useState([])
 
-
+    console.log(filterData, 'filterDate')
     const { data, refetch } = useHandleGetPropertiesQuery({
         page: currentPage,
         limit: itemsPerPage,
@@ -118,9 +119,11 @@ function Page() {
 
                                 {
 
-                                    filterData?.map((product, i) =>
+                                    filterData?.map((product:any, i) =>
                                         <div className='w-full' key={i}>
-                                            <PropertyCard product={product} />
+                                            <Link  href={`/properties/${product.slug}`} key={i}>
+                                                <PropertyCard product={product} />
+                                            </Link>
                                         </div>
                                     )
                                 }
@@ -133,7 +136,7 @@ function Page() {
 
 
                             {/* pagination */}
-                            <div className=" flex items-center justify-center mt-10">
+                            <div className={`${filterData?.length < 10 ? 'hidden' : ''} flex items-center justify-center mt-10`}>
                                 <select
                                     onChange={(e) =>
                                         handleItemsPerPageChange((e.target as HTMLSelectElement).value)

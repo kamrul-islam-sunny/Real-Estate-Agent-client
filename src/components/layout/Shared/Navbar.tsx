@@ -1,17 +1,18 @@
 "use client";
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
-import logo from '@/../public/asset/logo.svg'
+import React, { useEffect, useRef, useState } from 'react'
+import logo from '@/../public/Logo.svg'
 import { Button } from '@/components/ui/button'
 import { MdOutlineCancel } from 'react-icons/md';
-import { IoMenu } from 'react-icons/io5';
 import { usePathname } from 'next/navigation';
+import { Menu } from 'lucide-react';
 
 function Navbar() {
 
   const path = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -51,7 +52,7 @@ function Navbar() {
     return (
       <Link
         href={href}
-        className={`relative font-normal text-lg px-1 py-1 transition-all duration-300 hover:text-turquoise ${isActive
+        className={`relative font-nunito font-normal text-lg px-1 py-1 transition-all duration-300 hover:text-turquoise ${isActive
           ? "text-accent-gold font-medium"
           : "text-dark-gray"
           }`}
@@ -63,6 +64,17 @@ function Navbar() {
       </Link>
     );
   };
+  
+   useEffect(() => {
+    const handleClickOutside = (e:any) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
 
   return (
@@ -83,7 +95,7 @@ function Navbar() {
           <div className="flex justify-between items-center gap-5 py-5       bg-white relative z-50">
             <div className="relative z-50">
               {/* logo */}
-              <Image width={50} height={50} src={logo} alt='real-estate-agent-logo' className='' />
+              <Image width={100} height={50} src={logo} alt='real-estate-agent-logo' className='' />
             </div>
             <div className="hidden sm:flex gap-5 mt-2 text-zinc-600 font-inter">
               <NavLink href="/" currentPath={path}>Home</NavLink>
@@ -96,7 +108,7 @@ function Navbar() {
             {/* right navItem */}
             <div className="sm:block hidden ">
               <Button variant={'custom'} >
-                <Link href="#" className="text-lg font-nunito font-normal">Contact</Link>
+                <Link href="/contact" className="text-lg font-nunito font-normal">Contact</Link>
               </Button>
             </div>
 
@@ -104,12 +116,13 @@ function Navbar() {
               className="cursor-pointer relative z-50 sm:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {isMenuOpen ? <IoMenu size={28} /> : <MdOutlineCancel size={28} />}
+              {isMenuOpen ? <MdOutlineCancel size={28} /> : <Menu size={28} />}
             </div>
           </div>
 
           {/* with mobile navbar */}
           <div
+            ref={menuRef}
             className={`fixed top-0 left-0 w-full flex flex-col gap-4 bg-white pt-20 pb-5 z-40 px-[5%] transform duration-500 font-inter lg:hidden shadow ${isMenuOpen ? "translate-y-10" : "-translate-y-full"
               }`}
           >

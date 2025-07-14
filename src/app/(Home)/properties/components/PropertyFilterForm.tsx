@@ -54,6 +54,7 @@ export default function PropertyFilterForm({setIsLoading, currentPage,itemsPerPa
   const filterData = data?.payload.data
   console.log(data?.payload.data, filterData)
   console.log(fromData)
+  console.log(selectedAmenities)
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const fullData = {
@@ -148,16 +149,11 @@ export default function PropertyFilterForm({setIsLoading, currentPage,itemsPerPa
         <div>
           <label className="block text-lg font-medium mb-1 font-nunito">Square metres</label>
           <div className="flex gap-2">
-            <input {...register('sqmMin')}
-              onChange={(e) => {
-                handleInputChange('sqmMin')(e);
-              }}
-              placeholder="Min" type="number" className="w-full border rounded px-3 py-2" />
             <input {...register('sqmMax')}
               onChange={(e) => {
                 handleInputChange('sqmMax')(e);
               }}
-              placeholder="Max" type="number" className="w-full border rounded px-3 py-2" />
+              placeholder="Square meter" type="number" className="w-full border rounded px-3 py-2" />
           </div>
         </div>
 
@@ -169,8 +165,8 @@ export default function PropertyFilterForm({setIsLoading, currentPage,itemsPerPa
               <button
                 type="button"
                 key={num}
-                onClick={() => setSelectedBedrooms(num)}
-                className={`border px-3 py-1 rounded text-sm ${selectedBedrooms === num ? 'bg-black text-white' : 'hover:bg-gray-200'
+                onClick={() => setSelectedBedrooms(selectedBedrooms === num ? null : num)}
+                className={`border px-3 py-1 rounded text-sm cursor-pointer ${selectedBedrooms === num ? 'bg-black text-white' : 'hover:bg-gray-200'
                   }`}
               >
                 {num}
@@ -187,8 +183,8 @@ export default function PropertyFilterForm({setIsLoading, currentPage,itemsPerPa
               <button
                 type="button"
                 key={num}
-                onClick={() => setSelectedBathrooms(num)}
-                className={`border px-3 py-1 rounded text-sm ${selectedBathrooms === num ? 'bg-black text-white' : 'hover:bg-gray-200'
+                onClick={() => setSelectedBathrooms(selectedBathrooms === num ? null : num)}
+                className={`border px-3 py-1 rounded cursor-pointer text-sm ${selectedBathrooms === num ? 'bg-black text-white' : 'hover:bg-gray-200'
                   }`}
               >
                 {num}
