@@ -19,13 +19,12 @@ export default function aboutPage() {
 
             <div className="px-[5%]">
                 <div className="max-w-screen-xl mx-auto mt-10">
-                    <h1 className="max-w-lg mx-auto text-3xl sm:text-[56px] font-normal font-anton text-center pt-8 sm:pt-18">Hi, I am  <span className="text-accent-gold">Lorem ispum </span> <br />
-                        I can be your next real <br />
-                        estate partner</h1>
+                    <h1 className="max-w-4xl mx-auto text-3xl sm:text-[56px] font-normal font-anton text-center pt-8 sm:pt-18">Hi, I am  <span className="text-accent-gold">Lorem ispum </span> <br />
+                        I can be your next real estate partner</h1>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-12">
-                        <div className="place-items-center ">
-                            <Image src={AboutImage} alt="" height={450} width={350} className="h-[400px] w-full sm:w-fit object-cover object-top" />
+                        <div className="place-items-end ">
+                            <Image src={AboutImage} alt="" height={450} width={350} className="h-[400px] w-full sm:w-fit object-cover object-top pr-[10%]"/>
                         </div>
                         <div className="place-content-center">
                             <p className="text-lg font-nunito">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
@@ -73,7 +72,7 @@ export default function aboutPage() {
                             Contact our Team via
                             Loremipsum.com</p>
                     </div>
-                    <div className="sm:col-span-2 ">
+                    <div className="sm:col-span-2 ml-5 lg:ml-0">
                         <Accordion type="single" collapsible className="w-full space-y-5">
                             <AccordionItem value="item-1">
                                 <AccordionTrigger>Is it accessible?</AccordionTrigger>

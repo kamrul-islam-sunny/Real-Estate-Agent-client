@@ -1,4 +1,7 @@
+import Image from "next/image";
+import Link from "next/link";
 import { FaFacebookF, FaXTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa6";
+import logo from '@/../public/Logo.svg'
 
 export default function Footer() {
   return (
@@ -8,10 +11,7 @@ export default function Footer() {
         {/* Left: Logo and Description */}
         <div className="">
           <div className=" flex items-center gap-2 text-white text-3xl font-semibold mb-3">
-            <span className="bg-accent-gold text-black p-2 rounded-full">
-              🏠
-            </span>
-            Logo
+             <Image width={100} height={50} src={logo} alt='real-estate-agent-logo' className='' />
           </div>
           <p className="max-w-xl text-sm font-normal text-zinc-400 mb-6">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
@@ -36,9 +36,9 @@ export default function Footer() {
           <div className="lg:place-items-center">
             <h4 className="text-accent-gold text-2xl font-semibold mb-4">Pages</h4>
             <ul className="space-y-2 text-zinc-300 text-sm">
-              <li><a href="#">About</a></li>
-              <li><a href="#">Properties</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><Link href="/about">About</Link></li>
+              <li><Link href="/properties">Properties</Link></li>
+              <li><Link href="/contact">Contact</Link></li>
             </ul>
           </div>
 
@@ -47,20 +47,28 @@ export default function Footer() {
             <h4 className="text-accent-gold text-2xl font-semibold mb-4">Social Media</h4>
             <ul className="space-y-3 text-zinc-300 text-sm">
               <li className="flex items-center gap-3">
-                <FaFacebookF className="bg-zinc-800 p-2 rounded-full w-8 h-8 text-white" />
-                Facebook
+                <Link href={"https://www.facebook.com/"} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3">
+                  <FaFacebookF className="bg-zinc-800 p-2 rounded-full w-8 h-8 text-white" />
+                  Facebook
+                </Link>
               </li>
               <li className="flex items-center gap-3">
-                <FaXTwitter className="bg-zinc-800 p-2 rounded-full w-8 h-8 text-white" />
-                Twitter
+                <Link href={"https://twitter.com/"} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3">
+                  <FaXTwitter className="bg-zinc-800 p-2 rounded-full w-8 h-8 text-white" />
+                  Twitter
+                </Link>
               </li>
               <li className="flex items-center gap-3">
-                <FaLinkedinIn className="bg-zinc-800 p-2 rounded-full w-8 h-8 text-white" />
-                LinkedIn
+                <Link href={"https://www.linkedin.com/"} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3">
+                  <FaLinkedinIn className="bg-zinc-800 p-2 rounded-full w-8 h-8 text-white" />
+                  LinkedIn
+                </Link>
               </li>
               <li className="flex items-center gap-3">
-                <FaInstagram className="bg-zinc-800 p-2 rounded-full w-8 h-8 text-white" />
-                Instagram
+                <Link href={"https://www.Instagram.com/"} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3">
+                  <FaInstagram className="bg-zinc-800 p-2 rounded-full w-8 h-8 text-white" />
+                  Instagram
+                </Link>
               </li>
             </ul>
           </div>

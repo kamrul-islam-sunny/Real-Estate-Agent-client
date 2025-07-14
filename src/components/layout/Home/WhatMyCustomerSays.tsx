@@ -9,8 +9,9 @@ import {
     // CustomCarouselPrevious2,
     type CarouselApi,
 } from "@/components/ui/carousel"
-import TestimonialCard from '../Shared/commonCard/TestimonialCard '
-import { GoDotFill } from 'react-icons/go'
+import { Dot } from "lucide-react";
+import TestimonialCard from '../Shared/commonCard/TestimonialCard ';
+
 
 
 function WhatMyCustomerSays() {
@@ -37,9 +38,9 @@ function WhatMyCustomerSays() {
         console.log(current)
     }, [api, count, current])
 
-    const dotStyle = (num: number) => {
-        return `size-3 ${num === current ? 'text-black size-4 ml-2' : 'text-white ml-2'}`
-    }
+    // const dotStyle = (num: number) => {
+    //     return `size-3 ${num === current ? 'text-black size-4 ml-2' : 'text-white ml-2'}`
+    // }
 
 
     return (
@@ -66,10 +67,12 @@ function WhatMyCustomerSays() {
                             </Carousel>
 
                         </div>
-                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 py-2 flex items-center justify-center text-muted-foreground ">
+                        <div className="flex absolute bottom-4 left-1/2  -translate-x-1/2">
                             {
                                 Array.from({ length: count }).map((_, i) =>
-                                    <GoDotFill key={i} className={`${dotStyle(i)}`} />
+                                    i === current ?
+                                        <Dot key={i} className='text-black ml-1 ' /> : <Dot key={i} className='text-white size-5 ml-2' />
+
                                 )
                             }
                         </div>

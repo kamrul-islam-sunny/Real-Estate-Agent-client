@@ -29,13 +29,13 @@ export default function PropertyCard({ product }:any) {
         />
 
         {/* Verified & New badges */}
-        <div className="absolute top-2 left-2 flex flex-col gap-1">
-          <span className="bg-teal-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
+        <div className="absolute top-2 left-2 flex flex-col items-start gap-1">
+          <p className="bg-teal-500 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
             <CheckCircle size={14} /> Verified
-          </span>
-          <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+          </p>
+          <p className=" bg-[#D85151] text-white text-xs px-2 py-1 rounded">
             New
-          </span>
+          </p>
         </div>
       </div>
 
